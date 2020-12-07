@@ -1,0 +1,52 @@
+{
+  "name": "react-native-paging-list",
+  "title": "React Native Paging List",
+  "version": "0.0.1",
+  "description": "A React Native paging list which support iOS, Android and Web",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VeryBuy/react-native-paging-list.git",
+    "baseUrl": "https://github.com/VeryBuy/react-native-paging-list"
+  },
+  "keywords": [
+    "react-native",
+    "carousel",
+    "paging",
+    "list"
+  ],
+  "author": {
+    "name": "Mike",
+    "email": "yum650350@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-native": "^0.63.37",
+    "import-sort-style-module": "^6.0.0",
+    "prettier": "^2.2.1",
+    "prettier-plugin-import-sort": "^0.0.6",
+    "react": "^16.9.0",
+    "react-native": "^0.61.5",
+    "typescript": "^4.1.2"
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  }
+}
