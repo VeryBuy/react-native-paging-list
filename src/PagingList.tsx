@@ -30,12 +30,10 @@ export interface Props
 export default class PagingList<ExtendProps> extends Component<
   Props & ExtendProps
 > {
-  /** @internal */
   state = {
     containerWidth: 0,
   };
 
-  /** @internal */
   get snapToOffsets() {
     const { itemStyle } = this.props;
 
@@ -44,7 +42,6 @@ export default class PagingList<ExtendProps> extends Component<
     );
   }
 
-  /** @internal */
   get Footer() {
     const { itemStyle } = this.props;
 
@@ -59,7 +56,6 @@ export default class PagingList<ExtendProps> extends Component<
   }
 
   /**
-   * @internal
    * This is used to fix the incorrect offset if pagingEnabled is true on web
    */
   private CellRendererComponent = ({ index, ...props }) => {
@@ -89,7 +85,6 @@ export default class PagingList<ExtendProps> extends Component<
     return <View {...props} />;
   };
 
-  /** @internal */
   render() {
     const { itemStyle, style, externalListComponent, ...others } = this.props;
 
