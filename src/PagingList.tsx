@@ -18,7 +18,6 @@ export interface Props
     | 'showsHorizontalScrollIndicator'
     | 'horizontal'
     | 'CellRendererComponent'
-    | 'snapToAlignment'
     | 'decelerationRate'
     | 'ListFooterComponent'
   > {
@@ -30,6 +29,10 @@ export interface Props
 export default class PagingList<ExtendProps> extends Component<
   Props & ExtendProps
 > {
+  static defaultProps: Partial<Props> = {
+    snapToAlignment: 'center',
+  };
+
   state = {
     containerWidth: 0,
   };
@@ -43,7 +46,11 @@ export default class PagingList<ExtendProps> extends Component<
   }
 
   get Footer() {
-    const { itemStyle } = this.props;
+    const { itemStyle, snapToAlignment } = this.props;
+
+    if (snapToAlignment !== 'start') {
+      return null;
+    }
 
     return (
       <View
@@ -110,7 +117,6 @@ export default class PagingList<ExtendProps> extends Component<
           ListFooterComponent={this.Footer}
           showsHorizontalScrollIndicator={false}
           CellRendererComponent={this.CellRendererComponent}
-          snapToAlignment="start"
           decelerationRate="fast"
           pagingEnabled
           horizontal
