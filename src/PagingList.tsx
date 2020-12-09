@@ -91,19 +91,17 @@ export default class PagingList<ExtendProps> extends Component<
       : FlatList;
 
     return (
-      <View>
-        <List
-          style={style}
-          snapToOffsets={this.snapToOffsets}
-          ListFooterComponent={this.Footer}
-          showsHorizontalScrollIndicator={false}
-          CellRendererComponent={this.CellRendererComponent}
-          decelerationRate="fast"
-          pagingEnabled
-          horizontal
-          {...others}
-        />
-      </View>
+      <List
+        style={style}
+        snapToOffsets={this.snapToOffsets}
+        ListFooterComponent={this.Footer}
+        showsHorizontalScrollIndicator={false}
+        CellRendererComponent={this.CellRendererComponent}
+        decelerationRate="fast"
+        pagingEnabled
+        horizontal
+        {...others}
+      />
     );
   }
 }
