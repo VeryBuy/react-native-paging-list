@@ -3,12 +3,16 @@
   "title": "React Native Paging List",
   "version": "0.0.2",
   "description": "A React Native paging list which support iOS, Android and Web",
-  "main": "src/index.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.ts",
+  "types": "lib/typescript/index.d.ts",
   "files": [
-    "src"
+    "lib/",
+    "src/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "bob build"
   },
   "repository": {
     "type": "git",
@@ -34,6 +38,7 @@
     "typescript": "^4.0.0"
   },
   "devDependencies": {
+    "@react-native-community/bob": "^0.16.2",
     "@types/react": "^17.0.0",
     "@types/react-native": "^0.63.37",
     "import-sort-style-module": "^6.0.0",
@@ -48,5 +53,14 @@
       "style": "module",
       "parser": "typescript"
     }
+  },
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }
