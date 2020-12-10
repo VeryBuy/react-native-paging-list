@@ -114,6 +114,10 @@ export default class PagingList<ExtendProps> extends Component<
       this._activeIndex = nextActiveIndex;
       // TODO: onBeforeSnapToItem function
     }
+
+    if (typeof this.props.onScroll === 'function') {
+      this.props.onScroll(event);
+    }
   };
 
   private _snapToIndex = (index: number) => {
@@ -148,6 +152,7 @@ export default class PagingList<ExtendProps> extends Component<
       externalListComponent,
       sliderWidth,
       itemWidth,
+      onScroll,
       ...others
     } = this.props;
 
