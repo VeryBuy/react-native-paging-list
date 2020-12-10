@@ -15,6 +15,7 @@
     "url": "git+https://github.com/VeryBuy/react-native-paging-list.git",
     "baseUrl": "https://github.com/VeryBuy/react-native-paging-list"
   },
+  "homepage": "https://github.com/VeryBuy/react-native-paging-list",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
