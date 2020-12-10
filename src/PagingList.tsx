@@ -1,9 +1,18 @@
-import React, { Component } from 'react';
-import { FlatList, FlatListProps, Platform, View } from 'react-native';
+import React, { Component, createRef } from 'react';
+import {
+  FlatList,
+  FlatListProps,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
+  View,
+} from 'react-native';
 
 type ExternalListComponent = {
   new (props): Component;
 };
+
+type ScrollEvent = NativeSyntheticEvent<NativeScrollEvent>;
 
 export interface Props
   extends Omit<
@@ -27,6 +36,9 @@ export default class PagingList<ExtendProps> extends Component<
     snapToAlignment: 'center',
   };
 
+  private _listRef = createRef<any>();
+  private _activeIndex: number = 0;
+
   get snapToOffsets() {
     const { itemWidth } = this.props;
 
@@ -47,6 +59,12 @@ export default class PagingList<ExtendProps> extends Component<
         }}
       />
     );
+  }
+
+  get _dataLength() {
+    const { data } = this.props;
+
+    return data?.length || 0;
   }
 
   /**
@@ -77,12 +95,64 @@ export default class PagingList<ExtendProps> extends Component<
     return <View {...props} />;
   };
 
+  private _getScrollOffset = (event: ScrollEvent) => {
+    return event?.nativeEvent?.contentOffset?.x || 0;
+  };
+
+  private _getActiveIndex = (offset: number) => {
+    const { itemWidth } = this.props;
+
+    return offset / itemWidth;
+  };
+
+  private _onScroll = (event: ScrollEvent) => {
+    const scrollOffset = this._getScrollOffset(event);
+    const nextActiveIndex = this._getActiveIndex(scrollOffset);
+    const isReached = nextActiveIndex === Math.floor(nextActiveIndex);
+
+    if (isReached) {
+      this._activeIndex = nextActiveIndex;
+      // TODO: onBeforeSnapToItem function
+    }
+
+    if (typeof this.props.onScroll === 'function') {
+      this.props.onScroll(event);
+    }
+  };
+
+  private _snapToIndex = (index: number) => {
+    if (this._listRef?.current) {
+      this._listRef.current.scrollToIndex({ index });
+    }
+  };
+
+  public snapToPrev = () => {
+    if (this._activeIndex === 0) {
+      return;
+    }
+
+    this._snapToIndex(this._activeIndex - 1);
+  };
+
+  public snapToNext = () => {
+    if (this._activeIndex === this._dataLength - 1) {
+      return;
+    }
+
+    this._snapToIndex(this._activeIndex + 1);
+  };
+
+  public snapToItem = (index: number) => {
+    this._snapToIndex(index);
+  };
+
   render() {
     const {
       style,
       externalListComponent,
       sliderWidth,
       itemWidth,
+      onScroll,
       ...others
     } = this.props;
 
@@ -92,6 +162,8 @@ export default class PagingList<ExtendProps> extends Component<
 
     return (
       <List
+        onScroll={this._onScroll}
+        ref={this._listRef}
         style={style}
         snapToOffsets={this.snapToOffsets}
         ListFooterComponent={this.Footer}
